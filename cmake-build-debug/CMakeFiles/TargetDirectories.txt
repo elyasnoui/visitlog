@@ -1,0 +1,3 @@
+C:/Users/elyas/Documents/GitHub/visitlog/cmake-build-debug/CMakeFiles/visitlog.dir
+C:/Users/elyas/Documents/GitHub/visitlog/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/elyas/Documents/GitHub/visitlog/cmake-build-debug/CMakeFiles/rebuild_cache.dir

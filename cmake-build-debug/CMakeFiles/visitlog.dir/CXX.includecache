@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/elyas/Documents/GitHub/visitlog/main.cpp
+iostream
+-
+visitor.h
+C:/Users/elyas/Documents/GitHub/visitlog/visitor.h
+vector
+-
+string
+-
+fstream
+-
+algorithm
+-
+
+C:/Users/elyas/Documents/GitHub/visitlog/visitor.cpp
+visitor.h
+C:/Users/elyas/Documents/GitHub/visitlog/visitor.h
+algorithm
+-
+string
+-
+
+C:/Users/elyas/Documents/GitHub/visitlog/visitor.h
+string
+-
+vector
+-
+
