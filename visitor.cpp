@@ -4,14 +4,15 @@
 
 #include "visitor.h"
 #include <algorithm>
-#include <string>
 
 using namespace std;
 
+// Compares two strings alphabetically
 bool compareVisitors(const visitor& lhs, const visitor& rhs) {
     return lhs.getName() < rhs.getName();
 }
 
-void sortVisitors(std::vector<visitor>& visitors) {
+// Sorts the vector of visitors alphabetically using 'compareVisitors' via <algorithms> library
+void sortVisitors(vector<visitor>& visitors) {
     sort(visitors.begin(), visitors.end(), compareVisitors);
 }
