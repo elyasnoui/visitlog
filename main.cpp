@@ -2,6 +2,7 @@
 #include "visitor.h"
 #include <vector>
 #include <string>
+#include <regex>
 #include <fstream>
 
 using namespace std;
@@ -19,17 +20,18 @@ int main() {
     int maxTime = 0;
     bool inBuilding;
     while (visits >> timeIn >> timeOut >> name) {
-
         // Ensures the entry is valid
-        if (timeIn < timeOut) {
+        if (timeIn < timeOut && regex_match(name, regex("[a-zA-Z]{1,15}"))) {
             inBuilding = false;
 
             // Reads and compares every visitor already in the vector, and compares to see if the visitor already has an overlapping time
             for (visitor &v : visitors) {
                 if (v.getName() == name && (timeOut >= v.getTimeIn() && v.getTimeOut() >= timeIn)) {
-                    cout << "\nOverlap error: " << endl;
+
+                    cout << "Overlap error: " << endl;
                     cout << "1) " + v.toString() << endl;
                     cout << "2) " + name + " (entered at " + to_string(timeIn) + ", left at " + to_string(timeOut) + ")\n\n";
+
                     inBuilding = true;
                     break;
                 }
@@ -61,14 +63,13 @@ int main() {
         // Depending on the number of visitors present, structures the output sentence accordingly
         switch (temp.size()) {
             case 0:
-                cout << "There were no people present at time " + to_string(time) << endl;
+                cout << "There were no people present at time " + to_string(time) + "." << endl;
                 break;
             case 1:
-                cout << "There was one person present at time " + to_string(time) << endl;
+                cout << "There was one person present at time " + to_string(time) + ":" << endl;
                 break;
             default:
-                cout << "There were " + to_string(temp.size()) +
-                        " people present at time " + to_string(time) << endl;
+                cout << "There were " + to_string(temp.size()) + " people present at time " + to_string(time) + ":" << endl;
         }
 
         // Outputs all visitors present in the building
@@ -76,8 +77,8 @@ int main() {
             cout << "   " + v.toString() << endl;
     }
 
-    // Task 2: Iterates over visitors and outputs the time range of when the most visitors were present
-    int max[3] = {0,0,0};  // max[0] = minimum time, max[1] = number of visitors, max[2] = maximum time
+    // Task 2: Iterates over all the times visitors were present and outputs the time where the most visitors were present at one given point
+    int max[2] = {0,0};  // max[0] = time, max[1] = number of visitors
     for (int i=0; i<=maxTime; i++) {
         vector<visitor> temp;
 
@@ -91,27 +92,21 @@ int main() {
             max[0] = i;
             max[1] = temp.size();
         }
-
-        // Tracks the maximum time that the most visitors are present in
-        if (temp.size() == max[1])
-            max[2] = i;
     }
 
     // Depending on the number of visitors present, structures the output sentence accordingly
     switch (max[1]) {
         case 0:
-            cout << "\nThere were no people present at time " + to_string(max[2]) << "\n\n";
+            cout << "\nThere were no people present at time " + to_string(max[0]) << ".\n\n";
             break;
         case 1:
-            cout << "\nThere was one person present from the time " +
-                    to_string(max[0]) + " to " + to_string(max[2]) << "\n\n";
+            cout << "\nThere was one person present at time " + to_string(max[0]) << ".\n\n";
             break;
         default:
-            cout << "\nThere were " + to_string(max[1]) + " people present from the time " +
-                    to_string(max[0]) + " to " + to_string(max[2]) << "\n\n";
+            cout << "\nThere were " + to_string(max[1]) + " people present at time " + to_string(max[0]) << ".\n\n";
     }
 
-    // Task 3: Iterates through already sorted list (line 49) and calculates sum of time individual visitors spent in building
+    // Task 3: Iterates through already sorted list (line 51) and calculates sum of time individual visitors spent in building
     int temp;
     for (int i=0; i<visitors.size(); i++) {
         visitor v1 = visitors.at(i);
